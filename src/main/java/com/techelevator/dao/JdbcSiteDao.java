@@ -22,8 +22,8 @@ public class JdbcSiteDao implements SiteDao {
         List<Site> sites = new ArrayList<>();
         String sql = "SELECT site_id, site_number, max_occupancy, accessible, max_rv_length, utilities " +
                 "FROM site " +
-                "JOIN campground ON site.campground_id = site.campground_id " +
-                "WHERE campground.park_id = ? AND max_rv_length > 0";
+                "JOIN campground USING (campground_id) " +
+                "WHERE park_id = ? AND max_rv_length > 0;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, parkId);
         while (results.next()) {
             Site site = mapRowToSite(results); //Error appears to be stemming from here
