@@ -19,12 +19,12 @@ public class JdbcCampgroundDao implements CampgroundDao {
     @Override
     public List<Campground> getCampgroundsByParkId(int parkId) {
         List<Campground> campgrounds = new ArrayList<>();
-        String sql = "SELECT campground_id, name, open_from_mm, open_to_mm, daily_fee " +
+        String sql = "SELECT * " +
                 "FROM campground " +
                 "WHERE park_id = ?";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, parkId);
         while (results.next()) {
-            Campground campground = mapRowToCampground(results); //Error appears to be stemming from here
+            Campground campground = mapRowToCampground(results);
             campgrounds.add(campground);
         }
         return campgrounds;
