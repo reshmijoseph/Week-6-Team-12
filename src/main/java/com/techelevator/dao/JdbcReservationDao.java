@@ -18,28 +18,29 @@ public class JdbcReservationDao implements ReservationDao {
     public JdbcReservationDao(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
-
-    @Override
-    public Reservation getReservation(long reservationId) {
-        Reservation reservation = null;
-        String sql = "SELECT reservation_id, name, from_date, to_date " +
-                "FROM reservation " +
-                "WHERE reservation_id = ? ;";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, reservationId);
-        if (results.next()) {
-            reservation = mapRowToReservation(results);
-        }
-        return reservation;
-    }
-
+//
+//    @Override
+//    public Reservation getReservation(long reservationId) {
+//        Reservation reservation = null;
+//        String sql = "SELECT reservation_id, name, from_date, to_date " +
+//                "FROM reservation " +
+//                "WHERE reservation_id = ? ;";
+//        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, reservationId);
+//        if (results.next()) {
+//            reservation = mapRowToReservation(results);
+//        }
+//        return reservation;
+//    }
+//
     @Override
     public int createReservation(int siteId, String name, LocalDate fromDate, LocalDate toDate) {
-        String sql = "INSERT INTO reservation (site_id, name, from_date, to_date) " +
-                "VALUES (?, ?, ?, ?) RETURNING reservation_id;";
-        Long newId = jdbcTemplate.queryForObject(sql, Long.class,
-                siteId, name,  fromDate, toDate);
-
-        return getReservation();
+//        String sql = "INSERT INTO reservation (site_id, name, from_date, to_date) " +
+//                "VALUES (?, ?, ?, ?) RETURNING reservation_id;";
+//        Long newId = jdbcTemplate.queryForObject(sql, Long.class,
+//                siteId, name,  fromDate, toDate);
+//
+//        return getReservation();
+        return 1;
     }
 
 
