@@ -17,32 +17,6 @@ public class JdbcReservationDao implements ReservationDao {
     public JdbcReservationDao(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
-<<<<<<< HEAD
-//
-//    @Override
-//    public Reservation getReservation(long reservationId) {
-//        Reservation reservation = null;
-//        String sql = "SELECT reservation_id, name, from_date, to_date " +
-//                "FROM reservation " +
-//                "WHERE reservation_id = ? ;";
-//        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, reservationId);
-//        if (results.next()) {
-//            reservation = mapRowToReservation(results);
-//        }
-//        return reservation;
-//    }
-//
-    @Override
-    public int createReservation(int siteId, String name, LocalDate fromDate, LocalDate toDate) {
-//        String sql = "INSERT INTO reservation (site_id, name, from_date, to_date) " +
-//                "VALUES (?, ?, ?, ?) RETURNING reservation_id;";
-//        Long newId = jdbcTemplate.queryForObject(sql, Long.class,
-//                siteId, name,  fromDate, toDate);
-//
-//        return getReservation();
-        return 1;
-=======
-
 
     @Override
     public int createReservation(int siteId, String name, LocalDate fromDate, LocalDate toDate) {
@@ -73,7 +47,6 @@ public class JdbcReservationDao implements ReservationDao {
             reservationList.add(reservation);
         }
         return reservationList;
->>>>>>> 5b60b81fb3629a137ef472ab8a952565eab808f0
     }
 
 
