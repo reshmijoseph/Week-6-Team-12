@@ -31,9 +31,8 @@ public class JdbcReservationDaoTests extends BaseDaoTests {
 
     @Test
     public void viewReservations_returns_reservations_for_parkID(){
-        List<Reservation> allReservations = dao.viewReservations();
+        List<Reservation> allReservations = dao.viewReservations(1);
         Assert.assertEquals(2, allReservations.size());
-
     }
 
 

@@ -29,15 +29,19 @@ public class JdbcReservationDao implements ReservationDao {
     }
 
 
+
     @Override
-    public List<Reservation> viewReservations(){
+    public List<Reservation> viewReservations(int parkId){
         List<Reservation> reservationList = new ArrayList<>();
-        String sql = "SELECT reservation_id, site_id,  reservation.name, from_date, to_date " +
-                "FROM reservation" +
-                "JOIN site USING (site_id)" +
-                "JOIN campground USING (campground_id)" +
-                "JOIN park USING (park_id)" +
-                "WHERE park_id = 1 AND to_date BETWEEN CURRENT_DATE AND CURRENT_DATE + 30;";
+        String sql = "SELECT * \n" +
+                "FROM reservation r\n" +
+                "JOIN site s ON r.site_id = s.site_id\n" +
+                "JOIN campground c ON  s.campground_id = c.campground_id\n" +
+               // "JOIN park USING (park_id)" +
+               // "ORDER BY reservation_id" +
+                "WHERE park_id = ?" +
+                "AND from_date BETWEEN CURRENT_DATE AND CURRENT_DATE + 30" +
+                "AND to_date BETWEEN CURRENT_DATE AND CURRENT_DATE + 30;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, parkId);
         while (results.next()) {
             Reservation reservation = mapRowToReservation(results);
