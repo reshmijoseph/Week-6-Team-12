@@ -27,8 +27,6 @@ public class JdbcReservationDao implements ReservationDao {
                 siteId, name,  fromDate, toDate);
     }
 
-
-
     @Override
     public List<Reservation> viewReservations(int parkId){
         List<Reservation> reservationList = new ArrayList<>();
