@@ -217,3 +217,11 @@ SELECT campground_id, name, open_from_mm, open_to_mm, daily_fee
 SELECT site_id, site_number, max_occupancy, accessible, max_rv_length, utilities
 FROM site
 WHERE max_rv_length > 0;
+
+SELECT reservation_id, site_id,  reservation.name, from_date, to_date 
+                FROM reservation
+                JOIN site USING (site_id)
+                JOIN campground USING (campground_id)
+                JOIN park USING (park_id)
+               -- ORDER BY reservation_id
+                WHERE park_id = 1 AND to_date BETWEEN CURRENT_DATE AND CURRENT_DATE + 30;

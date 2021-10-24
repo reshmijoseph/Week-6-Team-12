@@ -32,13 +32,12 @@ public class JdbcReservationDao implements ReservationDao {
     @Override
     public List<Reservation> viewReservations(){
         List<Reservation> reservationList = new ArrayList<>();
-        String sql = "SELECT reservation_id, site_id,  name, from_date, to_date " +
+        String sql = "SELECT reservation_id, site_id,  reservation.name, from_date, to_date " +
                 "FROM reservation" +
                 "JOIN site USING (site_id)" +
                 "JOIN campground USING (campground_id)" +
                 "JOIN park USING (park_id)" +
-                "ORDER BY reservation_id" +
-                "WHERE park_id = ?;";
+                "WHERE park_id = 1 AND to_date BETWEEN CURRENT_DATE AND CURRENT_DATE + 30;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, parkId);
         while (results.next()) {
             Reservation reservation = mapRowToReservation(results);
