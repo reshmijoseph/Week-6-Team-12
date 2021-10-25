@@ -210,13 +210,5 @@ ALTER TABLE reservation ADD FOREIGN KEY (site_id) REFERENCES site(site_id);
 
 COMMIT;
 
-SELECT campground_id, name, open_from_mm, open_to_mm, daily_fee 
-                FROM campground 
-                WHERE park_id = 1;
-                
-SELECT site_id, site_number, max_occupancy, accessible, max_rv_length, utilities
-FROM site
-WHERE max_rv_length > 0;
-
 
                 

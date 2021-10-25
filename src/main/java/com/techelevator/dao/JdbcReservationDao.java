@@ -18,7 +18,6 @@ public class JdbcReservationDao implements ReservationDao {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-
     @Override
     public int createReservation(int siteId, String name, LocalDate fromDate, LocalDate toDate) {
         String sql = "INSERT INTO reservation (site_id, name, from_date, to_date) " +
@@ -27,8 +26,6 @@ public class JdbcReservationDao implements ReservationDao {
         return jdbcTemplate.queryForObject(sql, Integer.class,
                 siteId, name,  fromDate, toDate);
     }
-
-
 
     @Override
     public List<Reservation> viewReservations(int parkId){

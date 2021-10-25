@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
 import javax.sql.DataSource;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,10 +27,50 @@ public class JdbcSiteDao implements SiteDao {
                 "WHERE park_id = ? AND max_rv_length > 0;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, parkId);
         while (results.next()) {
-            Site site = mapRowToSite(results); //Error appears to be stemming from here
+            Site site = mapRowToSite(results);
             sites.add(site);
         }
         return sites;
+    }
+
+    @Override
+    public List<Site> getAvailableSitesByParkId(int parkId) {
+        String sql = "SELECT * FROM site " +
+                    "JOIN campground ON site.campground_id = campground.campground_id " +
+                    "JOIN park ON campground.park_id = park.park_id " +
+                    "WHERE park.park_id = ? " +
+                    "AND site_id NOT IN (SELECT site.site_id " +
+                    "FROM site " +
+                    "JOIN reservation ON reservation.site_id = site.site_id " +
+                    "WHERE reservation.from_date = CURRENT_DATE OR reservation.from_date = CURRENT_DATE + 1);";
+        SqlRowSet result = jdbcTemplate.queryForRowSet(sql, parkId);
+
+        List<Site> siteList = new ArrayList<>();
+        while (result.next()) {
+            Site site = mapRowToSite(result);
+            siteList.add(site);
+        }
+        return siteList;
+    }
+
+    @Override
+    public List<Site> getAvailableSitesInDateRange(int park_id, LocalDate fromDate, LocalDate toDate) {
+        String sql = "SELECT * FROM site " +
+                "JOIN campground ON site.campground_id = campground.campground_id " +
+                "JOIN park ON campground.park_id = park.park_id " +
+                "WHERE park.park_id = ? " +
+                "AND site_id NOT IN (SELECT site.site_id " +
+                "FROM site " +
+                "JOIN reservation ON reservation.site_id = site.site_id " +
+                "WHERE reservation.from_date <= ? AND reservation.to_date >= ?) ";
+        SqlRowSet result = jdbcTemplate.queryForRowSet(sql, park_id, fromDate, toDate);
+
+        List<Site> siteList = new ArrayList<>();
+        while (result.next()) {
+            Site site = mapRowToSite(result);
+            siteList.add(site);
+        }
+        return siteList;
     }
 
 
