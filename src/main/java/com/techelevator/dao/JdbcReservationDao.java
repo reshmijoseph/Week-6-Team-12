@@ -37,10 +37,8 @@ public class JdbcReservationDao implements ReservationDao {
                 "FROM reservation r\n" +
                 "JOIN site s ON r.site_id = s.site_id\n" +
                 "JOIN campground c ON  s.campground_id = c.campground_id\n" +
-               // "JOIN park USING (park_id)" +
-               // "ORDER BY reservation_id" +
-                "WHERE park_id = ?" +
-                "AND from_date BETWEEN CURRENT_DATE AND CURRENT_DATE + 30" +
+                "WHERE park_id = ?\n" +
+                "AND from_date BETWEEN CURRENT_DATE AND CURRENT_DATE + 30\n" +
                 "AND to_date BETWEEN CURRENT_DATE AND CURRENT_DATE + 30;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, parkId);
         while (results.next()) {

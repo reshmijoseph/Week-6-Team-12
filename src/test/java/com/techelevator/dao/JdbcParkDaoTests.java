@@ -1,6 +1,7 @@
 package com.techelevator.dao;
 
 import com.techelevator.model.Park;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,9 +22,9 @@ public class JdbcParkDaoTests extends BaseDaoTests {
     public void getParksTest_Should_ReturnAllParksInLocationAlphaOrder() {
         List<Park> parks = dao.getAllParks();
 
-        assertEquals(2, parks.size());
-        assertEquals("Ohio", parks.get(0).getLocation());
-        assertEquals("Pennsylvania", parks.get(1).getLocation());
+        Assert.assertEquals(2, parks.size());
+        Assert.assertEquals("Ohio", parks.get(0).getLocation());
+        Assert.assertEquals("Pennsylvania", parks.get(1).getLocation());
     }
 
 }

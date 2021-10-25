@@ -26,7 +26,7 @@ public class JdbcReservationDaoTests extends BaseDaoTests {
                 LocalDate.now().plusDays(1),
                 LocalDate.now().plusDays(3));
 
-        assertEquals(5, reservationCreated);
+        Assert.assertEquals(5, reservationCreated);
     }
 
     @Test

@@ -1,12 +1,14 @@
 package com.techelevator.dao;
 
 import com.techelevator.model.Campground;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class JdbcCampgroundDaoTests extends BaseDaoTests {
 
@@ -21,7 +23,8 @@ public class JdbcCampgroundDaoTests extends BaseDaoTests {
     public void getCampgrounds_Should_ReturnAllCampgrounds() {
         List<Campground> campgrounds = dao.getCampgroundsByParkId(1);
 
-        assertEquals(2,campgrounds.size());
+        Assert.assertNotNull(campgrounds);
+        Assert.assertEquals(2,campgrounds.size());
     }
 
 }

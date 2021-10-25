@@ -1,6 +1,7 @@
 package com.techelevator.dao;
 
 import com.techelevator.model.Site;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,7 +22,7 @@ public class JdbcSiteDaoTests extends BaseDaoTests {
     public void getSitesThatAllowRVs_Should_ReturnSites() {
         List<Site> sites = dao.getSitesThatAllowRVs(1);
 
-        assertEquals(2,sites.size());
+        Assert.assertEquals(2,sites.size());
     }
 
     public void getAvailableSites_Should_ReturnSites() {
